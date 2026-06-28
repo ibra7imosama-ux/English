@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>نجمة — Najma | تعلم الإنجليزية للأطفال</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== متغيرات الألوان / Color Variables ===== */
+:root {
+  --color-primary: #FF6B6B;
+  --color-primary-dark: #ee5a5a;
+  --color-secondary: #4ECDC4;
+  --color-secondary-dark: #3eb8af;
+  --color-accent: #FFE66D;
+  --color-bg: #FAFAFA;
+  --color-card: #FFFFFF;
+  --color-text: #2C3E50;
+  --color-text-light: #7f8c8d;
+  --color-success: #2ECC71;
+  --color-error: #E74C3C;
+  --color-purple: #A78BFA;
+  --color-pink: #F472B6;
+  --color-orange: #FB923C;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-pill: 999px;
+  --font-en-head: 'Fredoka', 'Comic Sans MS', 'Chalkboard SE', system-ui, cursive;
+  --font-en-body: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+  --font-ar: 'Cairo', 'Tahoma', 'Segoe UI', sans-serif;
+  --font-base: 18px;
+}
+html[data-lang="en"] { --font-head: var(--font-en-head); --font-body: var(--font-en-body); }
+html[data-lang="ar"] { --font-head: var(--font-ar); --font-body: var(--font-ar); }
+html[data-font="small"] { --font-base: 16px; }
+html[data-font="medium"] { --font-base: 18px; }
+html[data-font="large"] { --font-base: 22px; }
+
+/* ===== Reset ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+*::before, *::after { box-sizing: border-box; }
+html, body {
+  height: 100%;
+  font-family: var(--font-body);
+  font-size: var(--font-base);
+  color: var(--color-text);
+  background: linear-gradient(135deg, #f0f4ff 0%, #fafafa 50%, #fff5f5 100%);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+img, svg { display: block; max-width: 100%; }
+
+/* ===== حاوية التطبيق / App Container ===== */
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 720px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--color-bg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ===== الشاشات / Screens ===== */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  animation: screenIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.screen.active { display: flex; }
+@keyframes screenIn {
+  from { opacity: 0; transform: translateX(20px) scale(0.98); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+html[dir="rtl"] .screen { animation-name: screenInRtl; }
+@keyframes screenInRtl {
+  from { opacity: 0; transform: translateX(-20px) scale(0.98); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* ===== شاشة الترحيب / Splash Screen ===== */
+#splash-screen {
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #FF6B6B 0%, #FF8E53 50%, #FFA500 100%);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+.splash-star {
+  font-size: clamp(80px, 22vw, 140px);
+  animation: starPulse 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.2));
+  margin-bottom: 1rem;
+}
+@keyframes starPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.15) rotate(-10deg); }
+  50% { transform: scale(1.25) rotate(0deg); }
+  75% { transform: scale(1.15) rotate(10deg); }
+}
+.splash-title {
+  font-family: var(--font-head);
+  font-size: clamp(2.5rem, 10vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  margin-bottom: 0.25rem;
+}
+.splash-subtitle {
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  opacity: 0.95;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+}
+.splash-stars-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.splash-stars-bg span {
+  position: absolute;
+  color: rgba(255,255,255,0.4);
+  animation: floatStar 6s linear infinite;
+}
+@keyframes floatStar {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+}
+
+/* ===== الأزرار العامة / Buttons ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 60px;
+  padding: 0 2rem;
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.94); }
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #ff8e53 100%);
+  color: white;
+}
+.btn-secondary {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, #44b8a8 100%);
+  color: white;
+}
+.btn-accent {
+  background: linear-gradient(135deg, var(--color-accent) 0%, #ffcc4d 100%);
+  color: var(--color-text);
+}
+.btn-ghost {
+  background: var(--color-card);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+  border: 2px solid #eee;
+}
+.btn-lg { min-height: 72px; font-size: 1.5rem; padding: 0 2.5rem; }
+.btn-block { width: 100%; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ===== شاشة اختيار اللغة / Language Selection ===== */
+#language-screen {
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(160deg, #4ECDC4 0%, #44b8a8 100%);
+  color: white;
+}
+.lang-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 7vw, 2.6rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.lang-sub { font-size: 1.1rem; opacity: 0.95; margin-bottom: 2rem; }
+.lang-options { display: flex; flex-direction: column; gap: 1rem; width: 100%; max-width: 320px; }
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  color: var(--color-text);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.15s ease;
+  min-height: 70px;
+}
+.lang-option:active { transform: scale(0.96); }
+.lang-option .flag { font-size: 2.2rem; }
+.lang-option .label-en { margin-inline-start: auto; font-size: 1.3rem; color: var(--color-text-light); font-family: var(--font-en-body); }
+
+/* ===== شاشة الملف / Profile Screen ===== */
+#profile-screen {
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+.profile-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+.profile-sub { font-size: 1.1rem; color: var(--color-text-light); margin-bottom: 1.5rem; }
+.name-input {
+  width: 100%;
+  max-width: 340px;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  text-align: center;
+  border: 3px solid var(--color-secondary);
+  border-radius: var(--radius-pill);
+  outline: none;
+  background: white;
+  color: var(--color-text);
+  margin-bottom: 1.75rem;
+  min-height: 60px;
+}
+.name-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 4px rgba(255,107,107,0.15); }
+.avatar-section-label {
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  max-width: 340px;
+  margin: 0 auto 2rem;
+}
+.avatar-option {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  background: white;
+  border: 3px solid transparent;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  min-height: 60px;
+}
+.avatar-option:active { transform: scale(0.92); }
+.avatar-option.selected {
+  border-color: var(--color-primary);
+  background: #fff5f5;
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== الرأس / Header ===== */
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: white;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  min-height: 64px;
+}
+.header-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-pill);
+  background: #f5f5f5;
+  font-size: 1.4rem;
+  color: var(--color-text);
+  flex-shrink: 0;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.header-back:active { transform: scale(0.9); background: #eaeaea; }
+.header-title {
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  font-weight: 700;
+  flex: 1;
+  text-align: center;
+  color: var(--color-text);
+}
+.header-spacer { width: 48px; flex-shrink: 0; }
+
+/* ===== الشاشة الرئيسية / Home Dashboard ===== */
+.home-content { padding: 1.25rem; padding-bottom: 2rem; }
+.welcome-card {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #ff8e53 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.welcome-avatar { font-size: 3rem; flex-shrink: 0; }
+.welcome-text { flex: 1; min-width: 0; }
+.welcome-hello { font-size: 1rem; opacity: 0.9; font-weight: 600; }
+.welcome-name { font-family: var(--font-head); font-size: 1.6rem; font-weight: 700; word-break: break-word; }
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.stat-card {
+  background: white;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+.stat-icon { font-size: 1.8rem; }
+.stat-value { font-family: var(--font-head); font-size: 1.8rem; font-weight: 700; color: var(--color-primary); line-height: 1; }
+.stat-label { font-size: 0.9rem; color: var(--color-text-light); font-weight: 600; }
+.progress-section {
+  background: white;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.25rem;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+.progress-bar {
+  height: 14px;
+  background: #eee;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+  border-radius: var(--radius-pill);
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 0%;
+}
+.section-title {
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.units-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+.unit-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.unit-card:active { transform: scale(0.96); box-shadow: var(--shadow-md); }
+.unit-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--unit-color, var(--color-primary));
+}
+.unit-icon { font-size: 2.8rem; }
+.unit-name { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--color-text); }
+.unit-progress-mini { font-size: 0.85rem; color: var(--color-text-light); font-weight: 600; }
+.unit-stars-mini { font-size: 0.9rem; color: var(--color-accent); font-weight: 700; }
+
+/* ===== شاشة الوحدة / Unit Screen ===== */
+.unit-header-banner {
+  padding: 1.5rem 1.25rem;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.unit-banner-icon { font-size: 3.5rem; margin-bottom: 0.5rem; }
+.unit-banner-name { font-family: var(--font-head); font-size: 1.8rem; font-weight: 700; }
+.lessons-list { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.85rem; }
+.lesson-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease;
+  min-height: 70px;
+  width: 100%;
+  text-align: start;
+  border: 2px solid transparent;
+}
+.lesson-item:active { transform: scale(0.98); }
+.lesson-item.locked { opacity: 0.55; }
+.lesson-item.completed { border-color: var(--color-success); }
+.lesson-item-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  background: #f0f4ff;
+}
+.lesson-item.completed .lesson-item-icon { background: #e6f9ee; }
+.lesson-item.locked .lesson-item-icon { background: #f5f5f5; }
+.lesson-item-info { flex: 1; min-width: 0; }
+.lesson-item-name { font-family: var(--font-head); font-size: 1.15rem; font-weight: 700; color: var(--color-text); }
+.lesson-item-meta { font-size: 0.85rem; color: var(--color-text-light); font-weight: 600; }
+.lesson-item-status { font-size: 1.5rem; flex-shrink: 0; }
+
+/* ===== شاشة الدرس / Lesson Screen ===== */
+.lesson-topbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: white;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.lesson-progress-text { font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: var(--color-text-light); white-space: nowrap; }
+.lesson-progress-bar { flex: 1; height: 10px; background: #eee; border-radius: var(--radius-pill); overflow: hidden; }
+.lesson-progress-fill { height: 100%; background: linear-gradient(90deg, var(--color-secondary), var(--color-accent)); border-radius: var(--radius-pill); transition: width 0.4s ease; }
+.lesson-body { flex: 1; padding: 1.5rem 1.25rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; }
+
+/* ===== Flashcard ===== */
+.flashcard {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  width: 100%;
+  max-width: 380px;
+  animation: cardIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes cardIn { from { opacity: 0; transform: scale(0.85) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.flashcard-emoji { font-size: clamp(4rem, 18vw, 6rem); line-height: 1; margin-bottom: 0.75rem; }
+.flashcard-letter { font-family: var(--font-en-head); font-size: 2.2rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.25rem; }
+.flashcard-word { font-family: var(--font-en-head); font-size: clamp(2rem, 8vw, 2.8rem); font-weight: 700; color: var(--color-text); margin-bottom: 0.5rem; }
+.flashcard-translation { font-size: 1.4rem; color: var(--color-text-light); font-weight: 600; min-height: 1.6rem; }
+.flashcard-actions { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem; flex-wrap: wrap; }
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 56px;
+  padding: 0 1.5rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease;
+}
+.icon-btn:active { transform: scale(0.94); }
+.icon-btn-sound { background: var(--color-secondary); color: white; }
+.icon-btn-next { background: var(--color-primary); color: white; }
+
+/* ===== Multiple Choice ===== */
+.mc-question {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+.mc-emoji-display { font-size: clamp(5rem, 22vw, 8rem); line-height: 1; margin-bottom: 1.5rem; animation: cardIn 0.4s; }
+.mc-options { display: flex; flex-direction: column; gap: 0.85rem; width: 100%; max-width: 360px; }
+.mc-option {
+  min-height: 64px;
+  padding: 0 1.5rem;
+  background: white;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-en-head);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+  border: 3px solid transparent;
+  transition: transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.mc-option:active { transform: scale(0.96); }
+.mc-option.correct { border-color: var(--color-success); background: #e6f9ee; animation: pulseGood 0.5s; }
+.mc-option.wrong { border-color: var(--color-error); background: #fdecea; animation: shake 0.4s; }
+.mc-option.disabled { pointer-events: none; opacity: 0.7; }
+@keyframes pulseGood { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+
+/* ===== Listen & Tap ===== */
+.listen-prompt { font-family: var(--font-head); font-size: 1.3rem; font-weight: 700; text-align: center; color: var(--color-text); margin-bottom: 0.5rem; }
+.listen-big-btn {
+  width: 110px;
+  height: 110px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--color-secondary), #44b8a8);
+  color: white;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 1.5rem;
+  transition: transform 0.15s ease;
+  animation: pulseRing 2s ease-in-out infinite;
+}
+.listen-big-btn:active { transform: scale(0.9); }
+@keyframes pulseRing { 0%,100% { box-shadow: 0 0 0 0 rgba(78,205,196,0.5), var(--shadow-lg); } 50% { box-shadow: 0 0 0 18px rgba(78,205,196,0), var(--shadow-lg); } }
+.tap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.85rem; width: 100%; max-width: 380px; }
+.tap-option {
+  aspect-ratio: 1;
+  background: white;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  box-shadow: var(--shadow-sm);
+  border: 4px solid transparent;
+  transition: transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+  min-height: 60px;
+}
+.tap-option:active { transform: scale(0.94); }
+.tap-option.correct { border-color: var(--color-success); background: #e6f9ee; animation: pulseGood 0.5s; }
+.tap-option.wrong { border-color: var(--color-error); background: #fdecea; animation: shake 0.4s; }
+.tap-option.disabled { pointer-events: none; opacity: 0.7; }
+
+/* ===== Matching ===== */
+.match-instruction { font-family: var(--font-head); font-size: 1.2rem; font-weight: 700; text-align: center; color: var(--color-text); margin-bottom: 1rem; }
+.match-board { display: flex; gap: 1rem; width: 100%; max-width: 400px; }
+.match-col { flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
+.match-item {
+  min-height: 64px;
+  background: white;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-en-head);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+  border: 3px solid transparent;
+  transition: transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+  padding: 0.5rem;
+}
+.match-item.emoji { font-size: 2.4rem; }
+.match-item:active { transform: scale(0.95); }
+.match-item.selected { border-color: var(--color-secondary); background: #e6fffd; transform: scale(1.04); }
+.match-item.matched { border-color: var(--color-success); background: #e6f9ee; pointer-events: none; }
+.match-item.wrong { border-color: var(--color-error); background: #fdecea; animation: shake 0.4s; }
+
+/* ===== صندوق التغذية الراجعة / Feedback Banner ===== */
+.feedback-banner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  z-index: 100;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  max-width: 90%;
+}
+.feedback-banner.show { transform: translate(-50%, -50%) scale(1); }
+.feedback-emoji { font-size: 3.5rem; margin-bottom: 0.25rem; }
+.feedback-text { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: var(--color-text); }
+.feedback-banner.correct .feedback-emoji { animation: bounce 0.6s; }
+.feedback-banner.wrong .feedback-emoji { animation: shake 0.5s; }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+/* ===== شاشة المكافأة / Reward Screen ===== */
+#reward-screen {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(160deg, #FFE66D 0%, #FFB347 100%);
+  overflow: hidden;
+}
+.reward-medal { font-size: clamp(5rem, 22vw, 8rem); animation: medalDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1); margin-bottom: 1rem; }
+@keyframes medalDrop { 0% { transform: translateY(-100vh) rotate(-180deg) scale(0.5); opacity: 0; } 100% { transform: translateY(0) rotate(0) scale(1); opacity: 1; } }
+.reward-title { font-family: var(--font-head); font-size: clamp(2rem, 8vw, 2.8rem); font-weight: 700; color: var(--color-text); margin-bottom: 0.5rem; }
+.reward-message { font-size: 1.2rem; color: var(--color-text); margin-bottom: 1.25rem; max-width: 340px; font-weight: 600; }
+.reward-stars-earned { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 1.75rem; }
+.reward-star { font-size: 3rem; animation: starPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+@keyframes starPop { 0% { transform: scale(0) rotate(-180deg); } 100% { transform: scale(1) rotate(0); } }
+.confetti-piece { position: absolute; top: -20px; font-size: 1.8rem; animation: confettiFall linear forwards; pointer-events: none; }
+@keyframes confettiFall { to { transform: translateY(110vh) rotate(720deg); } }
+
+/* ===== الإعدادات / Settings ===== */
+.settings-content { padding: 1.25rem; padding-bottom: 2rem; }
+.settings-group {
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-label { font-family: var(--font-head); font-size: 1.1rem; font-weight: 600; color: var(--color-text); }
+.settings-desc { font-size: 0.85rem; color: var(--color-text-light); margin-top: 0.15rem; }
+.settings-name { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--color-primary); margin-top: 0.25rem; }
+.whatsapp-card {
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  border-top: 1px solid #f0f0f0;
+}
+.whatsapp-textarea {
+  width: 100%;
+  min-height: 96px;
+  padding: 0.9rem 1rem;
+  border: 2px solid #f4dcdc;
+  border-radius: var(--radius-md);
+  resize: vertical;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text);
+  outline: none;
+}
+.whatsapp-textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(255,107,107,0.15); }
+.whatsapp-actions { display: flex; justify-content: flex-end; }
+.whatsapp-btn {
+  min-height: 46px;
+  padding: 0 1.2rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-secondary) 0%, #44b8a8 100%);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+.whatsapp-btn:active { transform: scale(0.98); }
+.settings-avatars { display: flex; gap: 0.6rem; align-items: center; margin-top: 0.6rem; flex-wrap: wrap; }
+.settings-avatars button.avatar-emoji {
+  width: 56px; height: 56px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; background: white; box-shadow: var(--shadow-sm); border: 3px solid transparent; cursor: pointer;
+}
+.settings-avatars img.avatar-img {
+  width: 56px; height: 56px; border-radius: 50%; object-fit: cover; box-shadow: var(--shadow-sm); border: 3px solid transparent; cursor: pointer;
+}
+.settings-avatars .selected { border-color: var(--color-primary); transform: scale(1.04); }
+.settings-avatar-upload { display: flex; gap: 0.6rem; align-items: center; margin-top: 0.5rem; }
+.settings-avatar-upload input[type="file"] { display: none; }
+.settings-avatar-upload label.upload-btn {
+  background: #f0f0f0; padding: 0.45rem 0.9rem; border-radius: var(--radius-pill); cursor: pointer; font-weight:700; color:var(--color-text);
+}
+/* Toggle */
+.toggle {
+  position: relative;
+  width: 56px;
+  height: 32px;
+  background: #ccc;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.toggle.on { background: var(--color-success); }
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  inset-inline-start: 3px;
+  width: 26px;
+  height: 26px;
+  background: white;
+  border-radius: var(--radius-pill);
+  transition: transform 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+.toggle.on::after { transform: translateX(24px); }
+html[dir="rtl"] .toggle.on::after { transform: translateX(-24px); }
+/* Segmented */
+.segmented { display: flex; background: #f0f0f0; border-radius: var(--radius-pill); padding: 3px; flex-shrink: 0; }
+.segmented button {
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  transition: all 0.2s ease;
+  min-height: 36px;
+}
+.segmented button.active { background: white; color: var(--color-primary); box-shadow: var(--shadow-sm); }
+.lang-select { display: flex; gap: 0.5rem; }
+.lang-select button {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-head);
+  font-weight: 600;
+  background: #f0f0f0;
+  color: var(--color-text-light);
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+.lang-select button.active { background: var(--color-secondary); color: white; }
+.danger-btn {
+  background: var(--color-error);
+  color: white;
+  width: 100%;
+  min-height: 56px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  margin-top: 0.5rem;
+}
+.danger-btn:active { transform: scale(0.98); }
+
+/* ===== Modal تأكيد ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 2rem;
+  animation: fadeIn 0.2s;
+}
+.modal-overlay.show { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-box {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  text-align: center;
+  max-width: 360px;
+  width: 100%;
+  animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes modalIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+.modal-title { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--color-text); }
+.modal-text { font-size: 1rem; color: var(--color-text-light); margin-bottom: 1.5rem; }
+.modal-actions { display: flex; gap: 0.75rem; }
+.modal-actions .btn { flex: 1; min-height: 52px; font-size: 1.1rem; }
+
+/* ===== Badges Section ===== */
+.badges-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 0.5rem; }
+.badge-card {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 1rem 0.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 2px solid transparent;
+}
+.badge-card.earned { border-color: var(--color-accent); background: #fffdf0; }
+.badge-card.locked { opacity: 0.5; }
+.badge-icon { font-size: 2.2rem; margin-bottom: 0.25rem; }
+.badge-name { font-size: 0.78rem; font-weight: 700; color: var(--color-text); line-height: 1.2; }
+
+/* ===== Responsive ===== */
+@media (max-width: 380px) {
+  .units-grid { grid-template-columns: 1fr; }
+  .tap-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-height: 700px) {
+  .home-content { padding-top: 1.5rem; }
+}
+
+/* ===== Scrollbar ===== */
+.screen::-webkit-scrollbar { width: 6px; }
+.screen::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+.screen::-webkit-scrollbar-track { background: transparent; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== شاشة الترحيب / Splash ===== -->
+  <div id="splash-screen" class="screen active">
+    <div class="splash-stars-bg" id="splash-stars"></div>
+    <div class="splash-star">⭐</div>
+    <h1 class="splash-title" data-i18n="appName">نجمة</h1>
+    <p class="splash-subtitle" data-i18n="appTagline">تعلم الإنجليزية بالممتعة</p>
+  </div>
+
+  <!-- ===== اختيار اللغة / Language ===== -->
+  <div id="language-screen" class="screen">
+    <h2 class="lang-title" data-i18n="chooseLanguage">اختر لغتك</h2>
+    <p class="lang-sub" data-i18n="chooseLanguageSub">يمكنك تغييرها لاحقاً من الإعدادات</p>
+    <div class="lang-options">
+      <button class="lang-option" onclick="selectLanguage('ar')">
+        <span class="flag">🇸🇦</span>
+        <span>العربية</span>
+        <span class="label-en">Arabic</span>
+      </button>
+      <button class="lang-option" onclick="selectLanguage('en')">
+        <span class="flag">🇬🇧</span>
+        <span>English</span>
+        <span class="label-en">الإنجليزية</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== ملف الطفل / Profile ===== -->
+  <div id="profile-screen" class="screen">
+    <h2 class="profile-title" data-i18n="enterName">ما اسمك؟</h2>
+    <p class="profile-sub" data-i18n="profileSub">سنستخدم اسمك للترحيب بك</p>
+    <input type="text" class="name-input" id="name-input" maxlength="20" placeholder="...">
+    <p class="avatar-section-label" data-i18n="chooseAvatar">اختر شخصيتك</p>
+    <div class="avatar-grid" id="avatar-grid"></div>
+    <button class="btn btn-primary btn-lg btn-block" id="lets-go-btn" onclick="saveProfile()" disabled>
+      <span data-i18n="letsGo">هيا نبدأ!</span>
+    </button>
+  </div>
+
+  <!-- ===== الشاشة الرئيسية / Home ===== -->
+  <div id="home-screen" class="screen">
+    <div class="app-header">
+      <button class="header-back" onclick="showScreen('settings-screen')" aria-label="settings">⚙️</button>
+      <h2 class="header-title" data-i18n="home">الرئيسية</h2>
+      <div class="header-spacer"></div>
+    </div>
+    <div class="home-content">
+      <div class="welcome-card">
+        <div class="welcome-avatar" id="home-avatar">🦊</div>
+        <div class="welcome-text">
+          <div class="welcome-hello" data-i18n="welcomeHello">مرحباً</div>
+          <div class="welcome-name" id="home-name">...</div>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-value" id="home-stars">0</div>
+          <div class="stat-label" data-i18n="myStars">نجومي</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🏆</div>
+          <div class="stat-value" id="home-points">0</div>
+          <div class="stat-label" data-i18n="myPoints">نقاطي</div>
+        </div>
+      </div>
+      <div class="progress-section">
+        <div class="progress-label">
+          <span data-i18n="overallProgress">التقدم العام</span>
+          <span id="overall-progress-text">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="overall-progress-fill"></div></div>
+      </div>
+      <h3 class="section-title"><span data-i18n="units">الوحدات</span> 📚</h3>
+      <div class="units-grid" id="units-grid"></div>
+      <h3 class="section-title"><span data-i18n="badges">الشارات</span> 🎖️</h3>
+      <div class="badges-grid" id="badges-grid"></div>
+    </div>
+  </div>
+
+  <!-- ===== شاشة الوحدة / Unit ===== -->
+  <div id="unit-screen" class="screen">
+    <div class="app-header">
+      <button class="header-back" onclick="showScreen('home-screen')" aria-label="back">‹</button>
+      <h2 class="header-title" id="unit-header-title">...</h2>
+      <div class="header-spacer"></div>
+    </div>
+    <div class="unit-header-banner" id="unit-banner">
+      <div class="unit-banner-icon" id="unit-banner-icon">🔤</div>
+      <div class="unit-banner-name" id="unit-banner-name">...</div>
+    </div>
+    <div class="lessons-list" id="lessons-list"></div>
+  </div>
+
+  <!-- ===== شاشة الدرس / Lesson ===== -->
+  <div id="lesson-screen" class="screen">
+    <div class="lesson-topbar">
+      <button class="header-back" onclick="exitLesson()" aria-label="back">✕</button>
+      <div class="lesson-progress-bar"><div class="lesson-progress-fill" id="lesson-progress-fill"></div></div>
+      <span class="lesson-progress-text" id="lesson-progress-text">1/5</span>
+    </div>
+    <div class="lesson-body" id="lesson-body"></div>
+  </div>
+
+  <!-- ===== شاشة المكافأة / Reward ===== -->
+  <div id="reward-screen" class="screen">
+    <div class="reward-medal" id="reward-medal">🏆</div>
+    <h2 class="reward-title" id="reward-title">...</h2>
+    <p class="reward-message" id="reward-message">...</p>
+    <div class="reward-stars-earned" id="reward-stars-earned"></div>
+    <button class="btn btn-primary btn-lg" onclick="continueAfterReward()">
+      <span data-i18n="continue">استمر</span> ▶
+    </button>
+  </div>
+
+  <!-- ===== الإعدادات / Settings ===== -->
+  <div id="settings-screen" class="screen">
+    <div class="app-header">
+      <button class="header-back" onclick="showScreen('home-screen')" aria-label="back">‹</button>
+      <h2 class="header-title" data-i18n="settings">الإعدادات</h2>
+      <div class="header-spacer"></div>
+    </div>
+    <div class="settings-content">
+      <div class="settings-group">
+        <div class="settings-row">
+          <div>
+            <div class="settings-label" data-i18n="myName">اسمي</div>
+            <div class="settings-desc" data-i18n="myNameDesc">الاسم المعروض في التطبيق</div>
+            <div style="display:flex; gap:0.8rem; align-items:center; margin-top:0.4rem;">
+              <div id="settings-avatar-preview" style="width:48px; height:48px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm); font-size:1.4rem;">👤</div>
+              <div style="display:flex; flex-direction:column;">
+                <div class="settings-name" id="settings-profile-name">...</div>
+                <div class="settings-desc" style="margin-top:6px;">اضغط على الصورة لتغييرها</div>
+              </div>
+            </div>
+          </div>
+          <div class="settings-name">&nbsp;</div>
+        </div>
+        <div class="settings-row">
+          <div>
+            <div class="settings-label" data-i18n="language">اللغة</div>
+            <div class="settings-desc" data-i18n="languageDesc">لغة الواجهة</div>
+          </div>
+          <div class="lang-select">
+            <button id="lang-btn-ar" onclick="changeLanguage('ar')">العربية</button>
+            <button id="lang-btn-en" onclick="changeLanguage('en')">EN</button>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div>
+            <div class="settings-label" data-i18n="sound">الأصوات</div>
+            <div class="settings-desc" data-i18n="soundDesc">المؤثرات والنطق</div>
+          </div>
+          <div class="toggle" id="sound-toggle" onclick="toggleSound()"></div>
+        </div>
+        <div class="settings-row">
+          <div>
+            <div class="settings-label" data-i18n="fontSize">حجم الخط</div>
+            <div class="settings-desc" data-i18n="fontSizeDesc">صغير / متوسط / كبير</div>
+          </div>
+          <div class="segmented" id="font-segmented">
+            <button data-size="small" data-i18n="small">صغير</button>
+            <button data-size="medium" data-i18n="medium">متوسط</button>
+            <button data-size="large" data-i18n="large">كبير</button>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div>
+            <div class="settings-label" data-i18n="showTranslation">إظهار الترجمة</div>
+            <div class="settings-desc" data-i18n="showTranslationDesc">الترجمة العربية في البطاقات</div>
+          </div>
+          <div class="toggle" id="translation-toggle" onclick="toggleTranslation()"></div>
+        </div>
+        <div class="whatsapp-card">
+          <div>
+            <div class="settings-label" data-i18n="contactWhatsapp">التواصل عبر الواتساب</div>
+            <div class="settings-desc" data-i18n="contactWhatsappDesc">أرسل رسالة مباشرة مع التحية أولاً</div>
+          </div>
+          <textarea class="whatsapp-textarea" id="whatsapp-message" data-i18n-placeholder="whatsappPlaceholder" placeholder="اكتب رسالتك هنا..."></textarea>
+          <div class="whatsapp-actions">
+            <button class="whatsapp-btn" onclick="sendWhatsAppMessage()" data-i18n="sendWhatsapp">إرسال إلى الواتساب</button>
+          </div>
+        </div>
+        <div style="padding:0.8rem 0 0 0;">
+          <div class="settings-label">صور الإعدادات</div>
+          <div class="settings-avatars" id="settings-avatars"></div>
+          <div class="settings-avatar-upload">
+            <input type="file" id="settings-avatar-input" accept="image/*">
+            <label for="settings-avatar-input" class="upload-btn">تحميل صورة جديدة</label>
+          </div>
+        </div>
+      </div>
+      <button class="danger-btn" onclick="confirmReset()" data-i18n="resetProgress">إعادة تعيين التقدم</button>
+      <div style="text-align:center; margin-top:1.5rem; color:var(--color-text-light); font-size:0.85rem;">
+        نجمة — Najma · v1.0
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Feedback Banner ===== -->
+  <div class="feedback-banner" id="feedback-banner">
+    <div class="feedback-emoji" id="feedback-emoji">✅</div>
+    <div class="feedback-text" id="feedback-text">ممتاز!</div>
+  </div>
+
+  <!-- ===== Modal ===== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-icon" id="modal-icon">⚠️</div>
+      <div class="modal-title" id="modal-title">...</div>
+      <div class="modal-text" id="modal-text">...</div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="modal-cancel" data-i18n="no">لا</button>
+        <button class="btn btn-primary" id="modal-confirm" data-i18n="yes">نعم</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   نجمة — Najma | تطبيق تعلم الإنجليزية للأطفال
+   Single-file HTML app with bilingual support
+   ============================================================ */
+
+/* ===== الترجمات / i18n ===== */
+const i18n = {
+  ar: {
+    appName: 'نجمة', appTagline: 'تعلم الإنجليزية بالممتعة',
+    chooseLanguage: 'اختر لغتك', chooseLanguageSub: 'يمكنك تغييرها لاحقاً من الإعدادات',
+    enterName: 'ما اسمك؟', profileSub: 'سنستخدم اسمك للترحيب بك',
+    chooseAvatar: 'اختر شخصيتك', letsGo: 'هيا نبدأ!',
+    home: 'الرئيسية', welcomeHello: 'مرحباً',
+    myStars: 'نجومي', myPoints: 'نقاطي', overallProgress: 'التقدم العام',
+    units: 'الوحدات', badges: 'الشارات',
+    settings: 'الإعدادات', language: 'اللغة', languageDesc: 'لغة الواجهة',
+    myName: 'اسمي', myNameDesc: 'الاسم المعروض في التطبيق',
+    sound: 'الأصوات', soundDesc: 'المؤثرات والنطق',
+    fontSize: 'حجم الخط', fontSizeDesc: 'صغير / متوسط / كبير',
+    small: 'صغير', medium: 'متوسط', large: 'كبير',
+    showTranslation: 'إظهار الترجمة', showTranslationDesc: 'الترجمة العربية في البطاقات',
+    contactWhatsapp: 'التواصل عبر الواتساب', contactWhatsappDesc: 'أرسل رسالة مباشرة مع التحية أولاً',
+    whatsappPlaceholder: 'اكتب رسالتك هنا...', sendWhatsapp: 'إرسال إلى الواتساب',
+    resetProgress: 'إعادة تعيين التقدم',
+    back: 'رجوع', next: 'التالي', listen: 'استمع', continue: 'استمر',
+    correct: 'ممتال! 🎉', wrong: 'حاول مجدداً 💪',
+    whatIsThis: 'ما هذا؟', listenAndChoose: 'استمع واختر الصورة الصحيحة',
+    chooseCorrect: 'اختر الإجابة الصحيحة', matchPairs: 'طابق الأزواج المتشابهة',
+    lessonComplete: 'أحسنت! أكملت الدرس', unitComplete: 'مبروك! أكملت الوحدة 🏆',
+    starsEarned: 'حصلت على نجمة!', pointsEarned: 'نقاط',
+    completed: 'مكتمل', locked: 'مقفل', of: 'من',
+    lessons: 'دروس', confirmResetTitle: 'إعادة تعيين التقدم؟',
+    confirmResetText: 'سيتم مسح كل التقدم والنجوم والنقاط. لا يمكن التراجع.',
+    yes: 'نعم', no: 'لا',
+    badge1: 'نجم المبتدئين', badge2: 'متعلم نشيط', badge3: 'بطل الكلمات',
+    badge1Desc: 'أول درس', badge2Desc: '3 وحدات', badge3Desc: 'كل الوحدات',
+    dailyBonus: 'مكافأة الدخول اليومي! +5 نقاط',
+    tapToMatch: 'اضغط على العنصر ثم نظيره',
+    greatJob: 'عمل رائع!', keepGoing: 'استمر في التعلم!'
+  },
+  en: {
+    appName: 'Najma', appTagline: 'Learn English with Fun',
+    chooseLanguage: 'Choose Your Language', chooseLanguageSub: 'You can change it later in Settings',
+    enterName: 'What is your name?', profileSub: 'We will use your name to welcome you',
+    chooseAvatar: 'Choose your avatar', letsGo: "Let's Go!",
+    home: 'Home', welcomeHello: 'Hello',
+    myStars: 'My Stars', myPoints: 'My Points', overallProgress: 'Overall Progress',
+    units: 'Units', badges: 'Badges',
+    settings: 'Settings', language: 'Language', languageDesc: 'Interface language',
+    myName: 'My Name', myNameDesc: 'The name shown in the app',
+    sound: 'Sound', soundDesc: 'Effects & pronunciation',
+    fontSize: 'Font Size', fontSizeDesc: 'Small / Medium / Large',
+    small: 'Small', medium: 'Medium', large: 'Large',
+    showTranslation: 'Show Translation', showTranslationDesc: 'Arabic translation on cards',
+    contactWhatsapp: 'Contact via WhatsApp', contactWhatsappDesc: 'Send a direct message with a greeting first',
+    whatsappPlaceholder: 'Write your message here...', sendWhatsapp: 'Send to WhatsApp',
+    resetProgress: 'Reset Progress',
+    back: 'Back', next: 'Next', listen: 'Listen', continue: 'Continue',
+    correct: 'Great! 🎉', wrong: 'Try Again 💪',
+    whatIsThis: 'What is this?', listenAndChoose: 'Listen and tap the correct picture',
+    chooseCorrect: 'Choose the correct answer', matchPairs: 'Match the pairs',
+    lessonComplete: 'Well done! Lesson complete', unitComplete: 'Congratulations! Unit complete 🏆',
+    starsEarned: 'You earned a star!', pointsEarned: 'points',
+    completed: 'Completed', locked: 'Locked', of: 'of',
+    lessons: 'lessons', confirmResetTitle: 'Reset Progress?',
+    confirmResetText: 'All progress, stars and points will be erased. This cannot be undone.',
+    yes: 'Yes', no: 'No',
+    badge1: 'Beginner Star', badge2: 'Active Learner', badge3: 'Word Champion',
+    badge1Desc: 'First lesson', badge2Desc: '3 units', badge3Desc: 'All units',
+    dailyBonus: 'Daily login bonus! +5 points',
+    tapToMatch: 'Tap an item then its match',
+    greatJob: 'Great job!', keepGoing: 'Keep learning!'
+  }
+};
+
+/* ===== بيانات الوحدات / Units Data ===== */
+const UNITS = [
+  {
+    id: 1, icon: '🔤', nameAr: 'الحروف', nameEn: 'Letters', color: '#FF6B6B',
+    lessons: [
+      { id: '1-1', type: 'flashcard', nameAr: 'الحروف A-F', nameEn: 'Letters A-F', items: [
+        { en: 'Apple', ar: 'تفاحة', emoji: '🍎', letter: 'A' },
+        { en: 'Ball', ar: 'كرة', emoji: '⚽', letter: 'B' },
+        { en: 'Cat', ar: 'قطة', emoji: '🐱', letter: 'C' },
+        { en: 'Dog', ar: 'كلب', emoji: '🐶', letter: 'D' },
+        { en: 'Elephant', ar: 'فيل', emoji: '🐘', letter: 'E' },
+        { en: 'Fish', ar: 'سمكة', emoji: '🐟', letter: 'F' }
+      ]},
+      { id: '1-2', type: 'flashcard', nameAr: 'الحروف G-L', nameEn: 'Letters G-L', items: [
+        { en: 'Grapes', ar: 'عنب', emoji: '🍇', letter: 'G' },
+        { en: 'Hat', ar: 'قبعة', emoji: '🎩', letter: 'H' },
+        { en: 'Ice', ar: 'ثلج', emoji: '🧊', letter: 'I' },
+        { en: 'Juice', ar: 'عصير', emoji: '🧃', letter: 'J' },
+        { en: 'Kite', ar: 'طائرة ورقية', emoji: '🪁', letter: 'K' },
+        { en: 'Lion', ar: 'أسد', emoji: '🦁', letter: 'L' }
+      ]},
+      { id: '1-3', type: 'flashcard', nameAr: 'الحروف M-R', nameEn: 'Letters M-R', items: [
+        { en: 'Monkey', ar: 'قرد', emoji: '🐵', letter: 'M' },
+        { en: 'Nose', ar: 'أنف', emoji: '👃', letter: 'N' },
+        { en: 'Orange', ar: 'برتقالة', emoji: '🍊', letter: 'O' },
+        { en: 'Pen', ar: 'قلم', emoji: '🖊️', letter: 'P' },
+        { en: 'Queen', ar: 'ملكة', emoji: '👑', letter: 'Q' },
+        { en: 'Rabbit', ar: 'أرنب', emoji: '🐰', letter: 'R' }
+      ]},
+      { id: '1-4', type: 'flashcard', nameAr: 'الحروف S-Z', nameEn: 'Letters S-Z', items: [
+        { en: 'Sun', ar: 'شمس', emoji: '☀️', letter: 'S' },
+        { en: 'Tree', ar: 'شجرة', emoji: '🌳', letter: 'T' },
+        { en: 'Umbrella', ar: 'مظلة', emoji: '☂️', letter: 'U' },
+        { en: 'Van', ar: 'شاحنة', emoji: '🚐', letter: 'V' },
+        { en: 'Water', ar: 'ماء', emoji: '💧', letter: 'W' },
+        { en: 'Zebra', ar: 'حمار وحشي', emoji: '🦓', letter: 'Z' }
+      ]},
+      { id: '1-5', type: 'multiple_choice', nameAr: 'اختبر الحروف', nameEn: 'Quiz: Letters', items: [
+        { emoji: '🍎', correct: 'Apple', options: ['Apple', 'Ball', 'Cat'] },
+        { emoji: '🐶', correct: 'Dog', options: ['Dog', 'Fish', 'Lion'] },
+        { emoji: '☀️', correct: 'Sun', options: ['Tree', 'Sun', 'Pen'] },
+        { emoji: '🦁', correct: 'Lion', options: ['Cat', 'Rabbit', 'Lion'] },
+        { emoji: '🍊', correct: 'Orange', options: ['Orange', 'Apple', 'Grapes'] }
+      ]}
+    ]
+  },
+  {
+    id: 2, icon: '🔢', nameAr: 'الأرقام', nameEn: 'Numbers', color: '#4ECDC4',
+    lessons: [
+      { id: '2-1', type: 'flashcard', nameAr: 'الأرقام 1-5', nameEn: 'Numbers 1-5', items: [
+        { en: 'One', ar: 'واحد', emoji: '1️⃣', letter: '1' },
+        { en: 'Two', ar: 'اثنان', emoji: '2️⃣', letter: '2' },
+        { en: 'Three', ar: 'ثلاثة', emoji: '3️⃣', letter: '3' },
+        { en: 'Four', ar: 'أربعة', emoji: '4️⃣', letter: '4' },
+        { en: 'Five', ar: 'خمسة', emoji: '5️⃣', letter: '5' }
+      ]},
+      { id: '2-2', type: 'flashcard', nameAr: 'الأرقام 6-10', nameEn: 'Numbers 6-10', items: [
+        { en: 'Six', ar: 'ستة', emoji: '6️⃣', letter: '6' },
+        { en: 'Seven', ar: 'سبعة', emoji: '7️⃣', letter: '7' },
+        { en: 'Eight', ar: 'ثمانية', emoji: '8️⃣', letter: '8' },
+        { en: 'Nine', ar: 'تسعة', emoji: '9️⃣', letter: '9' },
+        { en: 'Ten', ar: 'عشرة', emoji: '🔟', letter: '10' }
+      ]},
+      { id: '2-3', type: 'multiple_choice', nameAr: 'عدّ الأشياء', nameEn: 'Count & Choose', items: [
+        { emoji: '🍎🍎', correct: 'Two', options: ['One', 'Two', 'Three'] },
+        { emoji: '🐱🐱🐱', correct: 'Three', options: ['Two', 'Three', 'Four'] },
+        { emoji: '⭐⭐⭐⭐', correct: 'Four', options: ['Three', 'Four', 'Five'] },
+        { emoji: '🐟🐟🐟🐟🐟', correct: 'Five', options: ['Four', 'Five', 'Six'] },
+        { emoji: '🎈🎈🎈🎈🎈🎈', correct: 'Six', options: ['Five', 'Six', 'Seven'] }
+      ]},
+      { id: '2-4', type: 'listen_tap', nameAr: 'استمع واختر الرقم', nameEn: 'Listen & Tap', items: [
+        { en: 'One', emoji: '1️⃣', options: ['1️⃣', '3️⃣', '5️⃣'] },
+        { en: 'Three', emoji: '3️⃣', options: ['2️⃣', '3️⃣', '4️⃣'] },
+        { en: 'Five', emoji: '5️⃣', options: ['5️⃣', '1️⃣', '2️⃣'] },
+        { en: 'Two', emoji: '2️⃣', options: ['4️⃣', '2️⃣', '6️⃣'] },
+        { en: 'Four', emoji: '4️⃣', options: ['3️⃣', '4️⃣', '5️⃣'] }
+      ]}
+    ]
+  },
+  {
+    id: 3, icon: '🎨', nameAr: 'الألوان والأشكال', nameEn: 'Colors & Shapes', color: '#A78BFA',
+    lessons: [
+      { id: '3-1', type: 'flashcard', nameAr: 'الألوان', nameEn: 'Colors', items: [
+        { en: 'Red', ar: 'أحمر', emoji: '🔴', letter: 'Red' },
+        { en: 'Blue', ar: 'أزرق', emoji: '🔵', letter: 'Blue' },
+        { en: 'Yellow', ar: 'أصفر', emoji: '🟡', letter: 'Yellow' },
+        { en: 'Green', ar: 'أخضر', emoji: '🟢', letter: 'Green' },
+        { en: 'Orange', ar: 'برتقالي', emoji: '🟠', letter: 'Orange' },
+        { en: 'Purple', ar: 'بنفسجي', emoji: '🟣', letter: 'Purple' }
+      ]},
+      { id: '3-2', type: 'flashcard', nameAr: 'الأشكال', nameEn: 'Shapes', items: [
+        { en: 'Circle', ar: 'دائرة', emoji: '⭕', letter: '○' },
+        { en: 'Square', ar: 'مربع', emoji: '⬜', letter: '□' },
+        { en: 'Triangle', ar: 'مثلث', emoji: '🔺', letter: '△' },
+        { en: 'Star', ar: 'نجمة', emoji: '⭐', letter: '★' },
+        { en: 'Heart', ar: 'قلب', emoji: '❤️', letter: '♥' },
+        { en: 'Diamond', ar: 'معين', emoji: '🔷', letter: '◆' }
+      ]},
+      { id: '3-3', type: 'matching', nameAr: 'طابق الألوان', nameEn: 'Match Colors', items: [
+        { en: 'Red', emoji: '🔴' },
+        { en: 'Blue', emoji: '🔵' },
+        { en: 'Yellow', emoji: '🟡' },
+        { en: 'Green', emoji: '🟢' }
+      ]},
+      { id: '3-4', type: 'multiple_choice', nameAr: 'اختبر الألوان', nameEn: 'Quiz: Colors', items: [
+        { emoji: '🔴', correct: 'Red', options: ['Red', 'Blue', 'Green'] },
+        { emoji: '🔵', correct: 'Blue', options: ['Yellow', 'Blue', 'Purple'] },
+        { emoji: '🟢', correct: 'Green', options: ['Green', 'Orange', 'Red'] },
+        { emoji: '🟡', correct: 'Yellow', options: ['Blue', 'Yellow', 'Green'] },
+        { emoji: '🟣', correct: 'Purple', options: ['Red', 'Purple', 'Orange'] }
+      ]}
+    ]
+  },
+  {
+    id: 4, icon: '🐾', nameAr: 'الحيوانات', nameEn: 'Animals', color: '#FB923C',
+    lessons: [
+      { id: '4-1', type: 'flashcard', nameAr: 'حيوانات 1', nameEn: 'Animals 1', items: [
+        { en: 'Cat', ar: 'قطة', emoji: '🐱', letter: 'Cat' },
+        { en: 'Dog', ar: 'كلب', emoji: '🐶', letter: 'Dog' },
+        { en: 'Bird', ar: 'عصفور', emoji: '🐦', letter: 'Bird' },
+        { en: 'Fish', ar: 'سمكة', emoji: '🐠', letter: 'Fish' },
+        { en: 'Cow', ar: 'بقرة', emoji: '🐮', letter: 'Cow' },
+        { en: 'Horse', ar: 'حصان', emoji: '🐴', letter: 'Horse' }
+      ]},
+      { id: '4-2', type: 'flashcard', nameAr: 'حيوانات 2', nameEn: 'Animals 2', items: [
+        { en: 'Sheep', ar: 'خروف', emoji: '🐑', letter: 'Sheep' },
+        { en: 'Duck', ar: 'بطة', emoji: '🦆', letter: 'Duck' },
+        { en: 'Lion', ar: 'أسد', emoji: '🦁', letter: 'Lion' },
+        { en: 'Elephant', ar: 'فيل', emoji: '🐘', letter: 'Elephant' },
+        { en: 'Monkey', ar: 'قرد', emoji: '🐵', letter: 'Monkey' },
+        { en: 'Rabbit', ar: 'أرنب', emoji: '🐰', letter: 'Rabbit' }
+      ]},
+      { id: '4-3', type: 'listen_tap', nameAr: 'استمع واختر الحيوان', nameEn: 'Listen & Tap', items: [
+        { en: 'Cat', emoji: '🐱', options: ['🐱', '🐶', '🐦'] },
+        { en: 'Dog', emoji: '🐶', options: ['🐮', '🐶', '🐴'] },
+        { en: 'Lion', emoji: '🦁', options: ['🦁', '🐵', '🐰'] },
+        { en: 'Fish', emoji: '🐠', options: ['🐠', '🐦', '🦆'] },
+        { en: 'Cow', emoji: '🐮', options: ['🐴', '🐑', '🐮'] }
+      ]},
+      { id: '4-4', type: 'multiple_choice', nameAr: 'اختبر الحيوانات', nameEn: 'Quiz: Animals', items: [
+        { emoji: '🐱', correct: 'Cat', options: ['Dog', 'Cat', 'Bird'] },
+        { emoji: '🦁', correct: 'Lion', options: ['Lion', 'Tiger', 'Cat'] },
+        { emoji: '🐘', correct: 'Elephant', options: ['Cow', 'Horse', 'Elephant'] },
+        { emoji: '🐰', correct: 'Rabbit', options: ['Rabbit', 'Sheep', 'Duck'] },
+        { emoji: '🐵', correct: 'Monkey', options: ['Bird', 'Monkey', 'Fish'] }
+      ]}
+    ]
+  },
+  {
+    id: 5, icon: '👤', nameAr: 'الجسم', nameEn: 'Body Parts', color: '#F472B6',
+    lessons: [
+      { id: '5-1', type: 'flashcard', nameAr: 'الوجه', nameEn: 'The Face', items: [
+        { en: 'Head', ar: 'رأس', emoji: '🙂', letter: 'Head' },
+        { en: 'Eyes', ar: 'عيون', emoji: '👀', letter: 'Eyes' },
+        { en: 'Nose', ar: 'أنف', emoji: '👃', letter: 'Nose' },
+        { en: 'Mouth', ar: 'فم', emoji: '👄', letter: 'Mouth' },
+        { en: 'Ears', ar: 'آذان', emoji: '👂', letter: 'Ears' }
+      ]},
+      { id: '5-2', type: 'flashcard', nameAr: 'الجسم', nameEn: 'The Body', items: [
+        { en: 'Hand', ar: 'يد', emoji: '✋', letter: 'Hand' },
+        { en: 'Arm', ar: 'ذراع', emoji: '💪', letter: 'Arm' },
+        { en: 'Leg', ar: 'ساق', emoji: '🦵', letter: 'Leg' },
+        { en: 'Foot', ar: 'قدم', emoji: '🦶', letter: 'Foot' },
+        { en: 'Teeth', ar: 'أسنان', emoji: '🦷', letter: 'Teeth' }
+      ]},
+      { id: '5-3', type: 'multiple_choice', nameAr: 'اختبر أجزاء الجسم', nameEn: 'Quiz: Body', items: [
+        { emoji: '👀', correct: 'Eyes', options: ['Ears', 'Eyes', 'Nose'] },
+        { emoji: '👃', correct: 'Nose', options: ['Mouth', 'Nose', 'Head'] },
+        { emoji: '✋', correct: 'Hand', options: ['Foot', 'Arm', 'Hand'] },
+        { emoji: '👂', correct: 'Ears', options: ['Ears', 'Eyes', 'Teeth'] },
+        { emoji: '🦵', correct: 'Leg', options: ['Leg', 'Arm', 'Hand'] }
+      ]}
+    ]
+  },
+  {
+    id: 6, icon: '💬', nameAr: 'كلمات يومية', nameEn: 'Daily Words', color: '#2ECC71',
+    lessons: [
+      { id: '6-1', type: 'flashcard', nameAr: 'التحيات', nameEn: 'Greetings', items: [
+        { en: 'Hello', ar: 'مرحباً', emoji: '👋', letter: 'Hello' },
+        { en: 'Goodbye', ar: 'وداعاً', emoji: '👐', letter: 'Goodbye' },
+        { en: 'Please', ar: 'من فضلك', emoji: '🙏', letter: 'Please' },
+        { en: 'Thank you', ar: 'شكراً', emoji: '🤗', letter: 'Thanks' },
+        { en: 'Sorry', ar: 'آسف', emoji: '😟', letter: 'Sorry' },
+        { en: 'Yes', ar: 'نعم', emoji: '✅', letter: 'Yes' }
+      ]},
+      { id: '6-2', type: 'flashcard', nameAr: 'الطعام', nameEn: 'Food', items: [
+        { en: 'Water', ar: 'ماء', emoji: '💧', letter: 'Water' },
+        { en: 'Milk', ar: 'حليب', emoji: '🥛', letter: 'Milk' },
+        { en: 'Bread', ar: 'خبز', emoji: '🍞', letter: 'Bread' },
+        { en: 'Apple', ar: 'تفاحة', emoji: '🍎', letter: 'Apple' },
+        { en: 'Banana', ar: 'موز', emoji: '🍌', letter: 'Banana' },
+        { en: 'Egg', ar: 'بيضة', emoji: '🥚', letter: 'Egg' }
+      ]},
+      { id: '6-3', type: 'listen_tap', nameAr: 'استمع واختر', nameEn: 'Listen & Tap', items: [
+        { en: 'Hello', emoji: '👋', options: ['👋', '🙏', '🤗'] },
+        { en: 'Water', emoji: '💧', options: ['💧', '🥛', '🍞'] },
+        { en: 'Apple', emoji: '🍎', options: ['🍌', '🍎', '🥚'] },
+        { en: 'Milk', emoji: '🥛', options: ['💧', '🥛', '🍞'] },
+        { en: 'Thank you', emoji: '🤗', options: ['👋', '🤗', '🙏'] }
+      ]},
+      { id: '6-4', type: 'matching', nameAr: 'طابق الكلمات', nameEn: 'Match Words', items: [
+        { en: 'Hello', emoji: '👋' },
+        { en: 'Water', emoji: '💧' },
+        { en: 'Apple', emoji: '🍎' },
+        { en: 'Milk', emoji: '🥛' }
+      ]}
+    ]
+  }
+];
+
+/* ===== الحالة / State ===== */
+let state = {
+  profile: null,
+  progress: {},
+  settings: { soundEnabled: true, fontSize: 'medium', language: 'ar', showTranslation: true },
+  lastLoginDate: null
+};
+let customAvatars = [];
+const WHATSAPP_NUMBER = '249906840981';
+let currentUnit = null;
+let currentLesson = null;
+let lessonState = { index: 0, attempts: 0, correctFirstTry: 0, totalPoints: 0 };
+let selectedAvatar = null;
+let audioCtx = null;
+let modalCallback = null;
+
+/* ===== التخزين / Storage ===== */
+function loadState() {
+  try {
+    const p = localStorage.getItem('najma_profile');
+    const pr = localStorage.getItem('najma_progress');
+    const s = localStorage.getItem('najma_settings');
+    const lld = localStorage.getItem('najma_lastLogin');
+    if (p) state.profile = JSON.parse(p);
+    if (pr) state.progress = JSON.parse(pr);
+    if (s) state.settings = Object.assign(state.settings, JSON.parse(s));
+    if (lld) state.lastLoginDate = lld;
+  } catch(e) { console.warn('Load state error:', e); }
+}
+function saveState() {
+  try {
+    if (state.profile) localStorage.setItem('najma_profile', JSON.stringify(state.profile));
+    localStorage.setItem('najma_progress', JSON.stringify(state.progress));
+    localStorage.setItem('najma_settings', JSON.stringify(state.settings));
+    if (state.lastLoginDate) localStorage.setItem('najma_lastLogin', state.lastLoginDate);
+  } catch(e) { console.warn('Save state error:', e); }
+}
+
+/* ===== الأصوات / Audio ===== */
+function initAudio() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+  }
+  if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+}
+function playTone(freq, duration, type) {
+  if (!state.settings.soundEnabled || !audioCtx) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(); osc.stop(audioCtx.currentTime + duration);
+  } catch(e) {}
+}
+function playCorrect() { playTone(523, 0.12); setTimeout(()=>playTone(659, 0.12), 110); setTimeout(()=>playTone(784, 0.2), 220); }
+function playWrong() { playTone(196, 0.18, 'sawtooth'); setTimeout(()=>playTone(155, 0.25, 'sawtooth'), 120); }
+function playClick() { playTone(700, 0.05, 'triangle'); }
+function playReward() { [523,659,784,1046].forEach((f,i)=>setTimeout(()=>playTone(f,0.18),i*110)); }
+function playStarPop() { playTone(880, 0.1, 'triangle'); setTimeout(()=>playTone(1175, 0.15, 'triangle'), 80); }
+function speak(text) {
+  if (!state.settings.soundEnabled) return;
+  try {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = 0.8; u.pitch = 1.1;
+    window.speechSynthesis.speak(u);
+  } catch(e) {}
+}
+
+/* ===== الترجمة / i18n helpers ===== */
+function t(key) { return (i18n[state.settings.language] && i18n[state.settings.language][key]) || key; }
+function applyLanguage() {
+  const lang = state.settings.language;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.setAttribute('data-lang', lang);
+  document.documentElement.setAttribute('data-font', state.settings.fontSize);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    el.placeholder = t(key);
+  });
+  const nameEl = document.getElementById('settings-profile-name');
+  if (nameEl) nameEl.textContent = state.profile?.name || '...';
+  document.getElementById('lang-btn-ar').classList.toggle('active', lang === 'ar');
+  document.getElementById('lang-btn-en').classList.toggle('active', lang === 'en');
+  document.querySelectorAll('#font-segmented button').forEach(b => {
+    b.classList.toggle('active', b.dataset.size === state.settings.fontSize);
+  });
+  document.getElementById('sound-toggle').classList.toggle('on', state.settings.soundEnabled);
+  document.getElementById('translation-toggle').classList.toggle('on', state.settings.showTranslation);
+}
+
+/* ===== التنقل / Navigation ===== */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'home-screen') renderHome();
+  if (id === 'settings-screen') applyLanguage();
+  playClick();
+}
+
+/* ===== شاشة الترحيب ===== */
+function buildSplashStars() {
+  const c = document.getElementById('splash-stars');
+  const emojis = ['⭐','✨','🌟','💫'];
+  for (let i = 0; i < 12; i++) {
+    const s = document.createElement('span');
+    s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    s.style.left = Math.random()*100 + '%';
+    s.style.fontSize = (Math.random()*1.5 + 1) + 'rem';
+    s.style.animationDelay = Math.random()*6 + 's';
+    s.style.animationDuration = (Math.random()*3 + 4) + 's';
+    c.appendChild(s);
+  }
+}
+function startApp() {
+  initAudio();
+  // إذا يوجد ملف، اذهب للرئيسية مباشرة، وإلا لاختيار اللغة
+  if (state.profile && state.profile.name) {
+    checkDailyBonus();
+    showScreen('home-screen');
+  } else {
+    showScreen('language-screen');
+  }
+}
+
+/* ===== اختيار اللغة ===== */
+function selectLanguage(lang) {
+  state.settings.language = lang;
+  applyLanguage();
+  saveState();
+  showScreen('profile-screen');
+  setTimeout(()=> document.getElementById('name-input').focus(), 300);
+}
+
+/* ===== الملف / Profile ===== */
+const AVATARS = ['🦁','🐸','🐧','🦊','🐨','🐙'];
+function buildAvatarGrid() {
+  const g = document.getElementById('avatar-grid');
+  g.innerHTML = '';
+  AVATARS.forEach(a => {
+    const b = document.createElement('button');
+    b.className = 'avatar-option';
+    b.textContent = a;
+    b.onclick = () => {
+      document.querySelectorAll('.avatar-option').forEach(x => x.classList.remove('selected'));
+      b.classList.add('selected');
+      selectedAvatar = a;
+      validateProfile();
+      playClick();
+    };
+    g.appendChild(b);
+  });
+}
+function loadCustomAvatars() {
+  try {
+    const raw = localStorage.getItem('najma_custom_avatars');
+    customAvatars = raw ? JSON.parse(raw) : [];
+  } catch(e) { customAvatars = []; }
+}
+function saveCustomAvatars() {
+  try { localStorage.setItem('najma_custom_avatars', JSON.stringify(customAvatars)); } catch(e){}
+}
+function renderSettingsAvatars() {
+  const container = document.getElementById('settings-avatars');
+  if (!container) return;
+  container.innerHTML = '';
+  // built-in emoji avatars
+  const all = [...AVATARS.map(a=>({type:'emoji', value:a})), ...customAvatars.map(d=>({type:'img', value:d}))];
+  all.forEach(item => {
+    if (item.type === 'emoji') {
+      const b = document.createElement('button');
+      b.className = 'avatar-emoji';
+      b.textContent = item.value;
+      b.onclick = () => selectSettingsAvatar(item.value, 'emoji', b);
+      container.appendChild(b);
+      if (state.profile && state.profile.avatar === item.value) b.classList.add('selected');
+    } else {
+      const img = document.createElement('img');
+      img.className = 'avatar-img';
+      img.src = item.value;
+      img.onclick = () => selectSettingsAvatar(item.value, 'img', img);
+      container.appendChild(img);
+      if (state.profile && state.profile.avatar === item.value) img.classList.add('selected');
+    }
+  });
+}
+function selectSettingsAvatar(value, type, el) {
+  document.querySelectorAll('#settings-avatars .selected').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  // set to profile and save
+  if (!state.profile) state.profile = { name: '...', avatar: value, language: state.settings.language, totalStars:0, totalPoints:0 };
+  state.profile.avatar = value;
+  saveState();
+  // update preview
+  const preview = document.getElementById('settings-avatar-preview');
+  if (preview) {
+    if (type === 'emoji') { preview.textContent = value; preview.style.backgroundImage = ''; }
+    else { preview.textContent = ''; preview.style.backgroundImage = `url(${value})`; preview.style.backgroundSize = 'cover'; }
+  }
+}
+function handleSettingsAvatarUpload(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    const data = e.target.result;
+    customAvatars.unshift(data);
+    // limit to 8
+    if (customAvatars.length > 8) customAvatars = customAvatars.slice(0,8);
+    saveCustomAvatars();
+    renderSettingsAvatars();
+    // auto-select newly uploaded
+    const first = document.querySelector('#settings-avatars img.avatar-img');
+    if (first) first.click();
+  };
+  reader.readAsDataURL(file);
+}
+function validateProfile() {
+  const name = document.getElementById('name-input').value.trim();
+  document.getElementById('lets-go-btn').disabled = !(name && selectedAvatar);
+}
+function saveProfile() {
+  const name = document.getElementById('name-input').value.trim();
+  if (!name || !selectedAvatar) return;
+  state.profile = { name, avatar: selectedAvatar, language: state.settings.language, totalStars: 0, totalPoints: 0 };
+  saveState();
+  applyLanguage();
+  playClick();
+  checkDailyBonus();
+  showScreen('home-screen');
+}
+
+function sendWhatsAppMessage() {
+  const textarea = document.getElementById('whatsapp-message');
+  const message = (textarea.value || '').trim();
+  const fullMessage = `السلام عليكم ورحمة الله تعالى وبركاته${message ? `\n${message}` : ''}`;
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(fullMessage)}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+  textarea.value = '';
+  playClick();
+}
+
+/* ===== الشاشة الرئيسية / Home ===== */
+function getTotalLessons() {
+  return UNITS.reduce((sum, u) => sum + u.lessons.length, 0);
+}
+function getCompletedLessons() {
+  let count = 0;
+  UNITS.forEach(u => u.lessons.forEach(l => {
+    if (state.progress[l.id] && state.progress[l.id].completed) count++;
+  }));
+  return count;
+}
+function getUnitCompletion(unit) {
+  const completed = unit.lessons.filter(l => state.progress[l.id] && state.progress[l.id].completed).length;
+  return { completed, total: unit.lessons.length, stars: completed };
+}
+function checkBadges() {
+  const completedLessons = getCompletedLessons();
+  const completedUnits = UNITS.filter(u => getUnitCompletion(u).completed === u.lessons.length).length;
+  return {
+    b1: completedLessons >= 1,
+    b2: completedUnits >= 3,
+    b3: completedUnits === UNITS.length
+  };
+}
+function renderHome() {
+  const p = state.profile;
+  document.getElementById('home-avatar').textContent = p.avatar;
+  document.getElementById('home-name').textContent = p.name;
+  document.getElementById('home-stars').textContent = p.totalStars || 0;
+  document.getElementById('home-points').textContent = p.totalPoints || 0;
+  const total = getTotalLessons();
+  const done = getCompletedLessons();
+  const pct = total ? Math.round((done/total)*100) : 0;
+  document.getElementById('overall-progress-text').textContent = pct + '%';
+  document.getElementById('overall-progress-fill').style.width = pct + '%';
+  // الوحدات
+  const grid = document.getElementById('units-grid');
+  grid.innerHTML = '';
+  UNITS.forEach(u => {
+    const c = getUnitCompletion(u);
+    const card = document.createElement('button');
+    card.className = 'unit-card';
+    card.style.setProperty('--unit-color', u.color);
+    card.innerHTML = `
+      <div class="unit-icon">${u.icon}</div>
+      <div class="unit-name">${state.settings.language === 'ar' ? u.nameAr : u.nameEn}</div>
+      <div class="unit-progress-mini">${c.completed}/${c.total} ${t('lessons')}</div>
+      <div class="unit-stars-mini">⭐ ${c.stars}</div>
+    `;
+    card.onclick = () => openUnit(u.id);
+    grid.appendChild(card);
+  });
+  // الشارات
+  const badges = checkBadges();
+  const bg = document.getElementById('badges-grid');
+  bg.innerHTML = '';
+  const badgeData = [
+    { id:'b1', icon:'🌟', name:t('badge1'), earned: badges.b1 },
+    { id:'b2', icon:'🎓', name:t('badge2'), earned: badges.b2 },
+    { id:'b3', icon:'🏆', name:t('badge3'), earned: badges.b3 }
+  ];
+  badgeData.forEach(b => {
+    const card = document.createElement('div');
+    card.className = 'badge-card ' + (b.earned ? 'earned' : 'locked');
+    card.innerHTML = `<div class="badge-icon">${b.earned ? b.icon : '🔒'}</div><div class="badge-name">${b.name}</div>`;
+    bg.appendChild(card);
+  });
+}
+
+/* ===== شاشة الوحدة / Unit ===== */
+function openUnit(unitId) {
+  currentUnit = UNITS.find(u => u.id === unitId);
+  if (!currentUnit) return;
+  document.getElementById('unit-header-title').textContent = state.settings.language === 'ar' ? currentUnit.nameAr : currentUnit.nameEn;
+  document.getElementById('unit-banner-icon').textContent = currentUnit.icon;
+  document.getElementById('unit-banner-name').textContent = state.settings.language === 'ar' ? currentUnit.nameAr : currentUnit.nameEn;
+  document.getElementById('unit-banner').style.background = `linear-gradient(135deg, ${currentUnit.color} 0%, ${currentUnit.color}dd 100%)`;
+  // قائمة الدروس
+  const list = document.getElementById('lessons-list');
+  list.innerHTML = '';
+  let prevCompleted = true;
+  currentUnit.lessons.forEach((lesson, idx) => {
+    const prog = state.progress[lesson.id];
+    const completed = prog && prog.completed;
+    const locked = !prevCompleted && !completed;
+    const item = document.createElement('button');
+    item.className = 'lesson-item' + (locked ? ' locked' : '') + (completed ? ' completed' : '');
+    const iconName = ['📘','📗','📙','📕','📖','✏️'][idx % 6];
+    let statusIcon = locked ? '🔒' : (completed ? '✅' : '▶️');
+    item.innerHTML = `
+      <div class="lesson-item-icon">${locked ? '🔒' : (completed ? '⭐' : iconName)}</div>
+      <div class="lesson-item-info">
+        <div class="lesson-item-name">${state.settings.language === 'ar' ? lesson.nameAr : lesson.nameEn}</div>
+        <div class="lesson-item-meta">${completed ? t('completed') : (locked ? t('locked') : '')}</div>
+      </div>
+      <div class="lesson-item-status">${statusIcon}</div>
+    `;
+    if (!locked) item.onclick = () => openLesson(lesson);
+    list.appendChild(item);
+    prevCompleted = completed;
+  });
+  showScreen('unit-screen');
+}
+
+/* ===== شاشة الدرس / Lesson ===== */
+function openLesson(lesson) {
+  currentLesson = lesson;
+  lessonState = { index: 0, attempts: 0, correctFirstTry: 0, totalPoints: 0 };
+  renderLesson();
+  showScreen('lesson-screen');
+}
+function exitLesson() {
+  if (currentUnit) openUnit(currentUnit.id);
+  else showScreen('home-screen');
+}
+function updateLessonProgress() {
+  const total = currentLesson.items.length;
+  const idx = Math.min(lessonState.index, total);
+  const pct = (idx / total) * 100;
+  document.getElementById('lesson-progress-fill').style.width = pct + '%';
+  document.getElementById('lesson-progress-text').textContent = `${idx}/${total}`;
+}
+function renderLesson() {
+  updateLessonProgress();
+  const body = document.getElementById('lesson-body');
+  body.innerHTML = '';
+  if (lessonState.index >= currentLesson.items.length) {
+    completeLesson();
+    return;
+  }
+  const item = currentLesson.items[lessonState.index];
+  switch (currentLesson.type) {
+    case 'flashcard': renderFlashcard(body, item); break;
+    case 'multiple_choice': renderMultipleChoice(body, item); break;
+    case 'listen_tap': renderListenTap(body, item); break;
+    case 'matching': renderMatching(body); break;
+  }
+}
+
+/* --- Flashcard --- */
+function renderFlashcard(body, item) {
+  const card = document.createElement('div');
+  card.className = 'flashcard';
+  const showTrans = state.settings.showTranslation && item.ar;
+  card.innerHTML = `
+    <div class="flashcard-emoji">${item.emoji}</div>
+    <div class="flashcard-letter">${item.letter || ''}</div>
+    <div class="flashcard-word">${item.en}</div>
+    <div class="flashcard-translation">${showTrans ? item.ar : ''}</div>
+    <div class="flashcard-actions">
+      <button class="icon-btn icon-btn-sound" onclick="speak('${item.en.replace(/'/g,"\\'")}'); playClick();">🔊 ${t('listen')}</button>
+      <button class="icon-btn icon-btn-next" onclick="nextFlashcard()">▶ ${t('next')}</button>
+    </div>
+  `;
+  body.appendChild(card);
+  // نطق تلقائي
+  setTimeout(()=> speak(item.en), 300);
+}
+function nextFlashcard() {
+  playClick();
+  lessonState.index++;
+  renderLesson();
+}
+
+/* --- Multiple Choice --- */
+function renderMultipleChoice(body, item) {
+  const q = document.createElement('div');
+  q.className = 'mc-question';
+  q.textContent = t('whatIsThis');
+  body.appendChild(q);
+  const em = document.createElement('div');
+  em.className = 'mc-emoji-display';
+  em.textContent = item.emoji;
+  body.appendChild(em);
+  const opts = document.createElement('div');
+  opts.className = 'mc-options';
+  // خلط الخيارات
+  const shuffled = [...item.options].sort(()=>Math.random()-0.5);
+  shuffled.forEach(opt => {
+    const b = document.createElement('button');
+    b.className = 'mc-option';
+    b.textContent = opt;
+    b.onclick = () => handleMCAnswer(b, opt, item, opts);
+    opts.appendChild(b);
+  });
+  body.appendChild(opts);
+}
+function handleMCAnswer(btn, opt, item, container) {
+  const correct = opt === item.correct;
+  if (correct) {
+    btn.classList.add('correct');
+    lessonState.correctFirstTry += (lessonState.attempts === 0 ? 1 : 0);
+    lessonState.totalPoints += (lessonState.attempts === 0 ? 10 : 5);
+    playCorrect();
+    showFeedback(true);
+    container.querySelectorAll('.mc-option').forEach(o => o.classList.add('disabled'));
+    speak(item.correct);
+    setTimeout(()=> { lessonState.attempts = 0; lessonState.index++; renderLesson(); }, 1200);
+  } else {
+    btn.classList.add('wrong');
+    lessonState.attempts++;
+    playWrong();
+    showFeedback(false);
+    setTimeout(()=> btn.classList.remove('wrong'), 600);
+  }
+}
+
+/* --- Listen & Tap --- */
+function renderListenTap(body, item) {
+  const p = document.createElement('div');
+  p.className = 'listen-prompt';
+  p.textContent = t('listenAndChoose');
+  body.appendChild(p);
+  const big = document.createElement('button');
+  big.className = 'listen-big-btn';
+  big.textContent = '🔊';
+  big.onclick = () => { playClick(); speak(item.en); };
+  body.appendChild(big);
+  const grid = document.createElement('div');
+  grid.className = 'tap-grid';
+  item.options.forEach(optEmoji => {
+    const b = document.createElement('button');
+    b.className = 'tap-option';
+    b.textContent = optEmoji;
+    b.onclick = () => handleTapAnswer(b, optEmoji, item, grid);
+    grid.appendChild(b);
+  });
+  body.appendChild(grid);
+  // نطق تلقائي مرة واحدة
+  setTimeout(()=> speak(item.en), 500);
+}
+function handleTapAnswer(btn, optEmoji, item, container) {
+  const correct = optEmoji === item.emoji;
+  if (correct) {
+    btn.classList.add('correct');
+    lessonState.correctFirstTry += (lessonState.attempts === 0 ? 1 : 0);
+    lessonState.totalPoints += (lessonState.attempts === 0 ? 10 : 5);
+    playCorrect();
+    showFeedback(true);
+    speak(item.en);
+    container.querySelectorAll('.tap-option').forEach(o => o.classList.add('disabled'));
+    setTimeout(()=> { lessonState.attempts = 0; lessonState.index++; renderLesson(); }, 1200);
+  } else {
+    btn.classList.add('wrong');
+    lessonState.attempts++;
+    playWrong();
+    showFeedback(false);
+    setTimeout(()=> btn.classList.remove('wrong'), 600);
+  }
+}
+
+/* --- Matching --- */
+let matchState = { selected: null, matched: 0, total: 0, attempts: 0 };
+function renderMatching(body) {
+  matchState = { selected: null, matched: 0, total: currentLesson.items.length, attempts: 0, pointsEarned: 0 };
+  const instr = document.createElement('div');
+  instr.className = 'match-instruction';
+  instr.textContent = t('matchPairs');
+  body.appendChild(instr);
+  const board = document.createElement('div');
+  board.className = 'match-board';
+  const col1 = document.createElement('div'); col1.className = 'match-col';
+  const col2 = document.createElement('div'); col2.className = 'match-col';
+  // عمود الكلمات (مخلوط)
+  const words = [...currentLesson.items].sort(()=>Math.random()-0.5);
+  // عمود الإيموجي (مخلوط بشكل مختلف)
+  const emojis = [...currentLesson.items].sort(()=>Math.random()-0.5);
+  words.forEach(item => {
+    const b = document.createElement('button');
+    b.className = 'match-item word';
+    b.textContent = item.en;
+    b.dataset.en = item.en;
+    b.onclick = () => handleMatchClick(b, 'word', item);
+    col1.appendChild(b);
+  });
+  emojis.forEach(item => {
+    const b = document.createElement('button');
+    b.className = 'match-item emoji';
+    b.textContent = item.emoji;
+    b.dataset.en = item.en;
+    b.onclick = () => handleMatchClick(b, 'emoji', item);
+    col2.appendChild(b);
+  });
+  board.appendChild(col1);
+  board.appendChild(col2);
+  body.appendChild(board);
+}
+function handleMatchClick(btn, type, item) {
+  if (btn.classList.contains('matched')) return;
+  playClick();
+  if (!matchState.selected) {
+    matchState.selected = { btn, type, item };
+    btn.classList.add('selected');
+    return;
+  }
+  // لا يمكن مطابقة عنصرين من نفس النوع
+  if (matchState.selected.type === type) {
+    matchState.selected.btn.classList.remove('selected');
+    matchState.selected = { btn, type, item };
+    btn.classList.add('selected');
+    return;
+  }
+  // تحقق المطابقة
+  const sel = matchState.selected;
+  if (sel.item.en === item.en) {
+    sel.btn.classList.remove('selected');
+    sel.btn.classList.add('matched');
+    btn.classList.add('matched');
+    matchState.matched++;
+    matchState.attempts++;
+    matchState.pointsEarned += (matchState.attempts <= matchState.total ? 10 : 5);
+    playCorrect();
+    speak(item.en);
+    if (matchState.matched === matchState.total) {
+      lessonState.totalPoints += matchState.pointsEarned;
+      lessonState.correctFirstTry += (matchState.attempts === matchState.total ? matchState.total : 0);
+      setTimeout(()=> { showFeedback(true); setTimeout(()=> { lessonState.index++; renderLesson(); }, 1200); }, 400);
+    }
+  } else {
+    sel.btn.classList.add('wrong');
+    btn.classList.add('wrong');
+    matchState.attempts++;
+    playWrong();
+    showFeedback(false);
+    const s1 = sel.btn, s2 = btn;
+    setTimeout(()=> { s1.classList.remove('selected','wrong'); s2.classList.remove('wrong'); }, 600);
+  }
+  matchState.selected = null;
+}
+
+/* ===== التغذية الراجعة / Feedback ===== */
+function showFeedback(correct) {
+  const banner = document.getElementById('feedback-banner');
+  const emoji = document.getElementById('feedback-emoji');
+  const text = document.getElementById('feedback-text');
+  banner.classList.remove('correct','wrong');
+  if (correct) {
+    banner.classList.add('correct');
+    emoji.textContent = '✅';
+    text.textContent = t('correct');
+  } else {
+    banner.classList.add('wrong');
+    emoji.textContent = '💪';
+    text.textContent = t('wrong');
+  }
+  banner.classList.add('show');
+  clearTimeout(banner._timer);
+  banner._timer = setTimeout(()=> banner.classList.remove('show'), 1000);
+}
+
+/* ===== إكمال الدرس / Complete Lesson ===== */
+function completeLesson() {
+  const prog = state.progress[currentLesson.id] || {};
+  const wasCompleted = prog.completed;
+  // حفظ التقدم
+  state.progress[currentLesson.id] = {
+    completed: true,
+    stars: 1,
+    bestScore: Math.max(prog.bestScore || 0, lessonState.totalPoints)
+  };
+  // منح النجمة والنقاط (مرة واحدة فقط)
+  if (!wasCompleted) {
+    state.profile.totalStars = (state.profile.totalStars || 0) + 1;
+  }
+  state.profile.totalPoints = (state.profile.totalPoints || 0) + lessonState.totalPoints;
+  saveState();
+  // تحقق إكمال الوحدة
+  const unitCompletion = getUnitCompletion(currentUnit);
+  const unitJustCompleted = unitCompletion.completed === unitCompletion.total && !wasCompleted;
+  if (unitJustCompleted) {
+    state.profile.totalPoints = (state.profile.totalPoints || 0) + 50;
+    saveState();
+  }
+  showReward(unitJustCompleted);
+}
+
+/* ===== شاشة المكافأة / Reward ===== */
+function showReward(unitComplete) {
+  const medal = document.getElementById('reward-medal');
+  const title = document.getElementById('reward-title');
+  const message = document.getElementById('reward-message');
+  const starsEl = document.getElementById('reward-stars-earned');
+  if (unitComplete) {
+    medal.textContent = '🏆';
+    title.textContent = t('unitComplete');
+    message.textContent = `+50 ${t('pointsEarned')} + ⭐`;
+  } else {
+    medal.textContent = '⭐';
+    title.textContent = t('lessonComplete');
+    message.textContent = `${t('starsEarned')} +${lessonState.totalPoints} ${t('pointsEarned')}`;
+  }
+  starsEl.innerHTML = '';
+  const starCount = unitComplete ? 3 : 1;
+  for (let i = 0; i < starCount; i++) {
+    const s = document.createElement('div');
+    s.className = 'reward-star';
+    s.textContent = '⭐';
+    s.style.animationDelay = (i * 0.15) + 's';
+    starsEl.appendChild(s);
+    setTimeout(()=> playStarPop(), i*150 + 200);
+  }
+  playReward();
+  // confetti
+  spawnConfetti();
+  showScreen('reward-screen');
+}
+function spawnConfetti() {
+  const screen = document.getElementById('reward-screen');
+  const old = screen.querySelectorAll('.confetti-piece');
+  old.forEach(e => e.remove());
+  const emojis = ['⭐','✨','🎉','💫','🌟','🎊'];
+  for (let i = 0; i < 20; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    c.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    c.style.left = Math.random()*100 + '%';
+    c.style.fontSize = (Math.random()*1.2 + 1) + 'rem';
+    c.style.animationDuration = (Math.random()*2 + 2.5) + 's';
+    c.style.animationDelay = Math.random()*0.5 + 's';
+    screen.appendChild(c);
+  }
+}
+function continueAfterReward() {
+  playClick();
+  const unitCompletion = getUnitCompletion(currentUnit);
+  if (unitCompletion.completed === unitCompletion.total) {
+    // الوحدة مكتملة، ارجع للرئيسية
+    showScreen('home-screen');
+  } else {
+    // ارجع لقائمة دروس الوحدة
+    openUnit(currentUnit.id);
+  }
+}
+
+/* ===== المكافأة اليومية / Daily Bonus ===== */
+function checkDailyBonus() {
+  const today = new Date().toDateString();
+  if (state.lastLoginDate !== today) {
+    state.lastLoginDate = today;
+    state.profile.totalPoints = (state.profile.totalPoints || 0) + 5;
+    saveState();
+    setTimeout(()=> {
+      const banner = document.getElementById('feedback-banner');
+      banner.classList.remove('correct','wrong');
+      banner.classList.add('correct');
+      document.getElementById('feedback-emoji').textContent = '🎁';
+      document.getElementById('feedback-text').textContent = t('dailyBonus');
+      banner.classList.add('show');
+      setTimeout(()=> banner.classList.remove('show'), 2200);
+      playReward();
+    }, 800);
+  }
+}
+
+/* ===== الإعدادات / Settings ===== */
+function changeLanguage(lang) {
+  state.settings.language = lang;
+  if (state.profile) state.profile.language = lang;
+  applyLanguage();
+  saveState();
+  playClick();
+}
+function toggleSound() {
+  state.settings.soundEnabled = !state.settings.soundEnabled;
+  applyLanguage();
+  saveState();
+  if (state.settings.soundEnabled) { initAudio(); playClick(); }
+}
+function toggleTranslation() {
+  state.settings.showTranslation = !state.settings.showTranslation;
+  applyLanguage();
+  saveState();
+  playClick();
+}
+document.querySelectorAll('#font-segmented button').forEach(b => {
+  b.onclick = () => {
+    state.settings.fontSize = b.dataset.size;
+    applyLanguage();
+    saveState();
+    playClick();
+  };
+});
+
+/* ===== إعادة التعيين / Reset ===== */
+function confirmReset() {
+  showModal('⚠️', t('confirmResetTitle'), t('confirmResetText'), () => {
+    state.progress = {};
+    state.profile.totalStars = 0;
+    state.profile.totalPoints = 0;
+    state.lastLoginDate = null;
+    saveState();
+    closeModal();
+    showScreen('home-screen');
+  });
+}
+function showModal(icon, title, text, onConfirm) {
+  document.getElementById('modal-icon').textContent = icon;
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-text').textContent = text;
+  modalCallback = onConfirm;
+  document.getElementById('modal-overlay').classList.add('show');
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('show');
+  modalCallback = null;
+}
+document.getElementById('modal-cancel').onclick = () => { playClick(); closeModal(); };
+document.getElementById('modal-confirm').onclick = () => { playClick(); if (modalCallback) modalCallback(); };
+
+/* ===== التهيئة / Init ===== */
+function init() {
+  loadState();
+  applyLanguage();
+  buildSplashStars();
+  buildAvatarGrid();
+  loadCustomAvatars();
+  renderSettingsAvatars();
+  document.getElementById('name-input').addEventListener('input', validateProfile);
+  document.getElementById('name-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !document.getElementById('lets-go-btn').disabled) saveProfile();
+  });
+  const fileInput = document.getElementById('settings-avatar-input');
+  if (fileInput) fileInput.addEventListener('change', e => {
+    const f = e.target.files && e.target.files[0];
+    if (f) handleSettingsAvatarUpload(f);
+  });
+  // محاولة استئناف AudioContext عند أول تفاعل
+  document.addEventListener('click', initAudio, { once: true });
+  document.addEventListener('touchstart', initAudio, { once: true });
+  // شاشة الترحيب: الانتقال التلقائي بعد 2 ثانية أو عند النقر
+  setTimeout(startApp, 2200);
+  document.getElementById('splash-screen').addEventListener('click', startApp, { once: true });
+}
+init();
+</script>
+</body>
+</html>
